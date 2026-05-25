@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+   // Cek user aktif dulu sebelum attempt
+        $user = \App\Models\User::where('email', $credentials['email'])->first();
 
 class AuthController extends Controller
 {
@@ -34,8 +36,6 @@ class AuthController extends Controller
         ]);
 
      
-   // Cek user aktif dulu sebelum attempt
-        $user = \App\Models\User::where('email', $credentials['email'])->first();
         
         if ($user && !$user->is_active) {
             return back()
